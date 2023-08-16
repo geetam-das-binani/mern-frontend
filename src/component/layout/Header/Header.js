@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNavbar } from "overlay-navbar";
-import { BrowserRouter } from "react-router-dom";
-import logo from "../../images/logo.png";
+
+import logo from "../../../images/logo.png";
 import { MdAccountCircle } from "react-icons/md";
 import { MdSearch } from "react-icons/md";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -12,9 +12,7 @@ export default function Header() {
     logo,
     logoWidth: "20vmax",
     navColor1: "grey",
-    navColor2: "red",
-    navColor3: "yellow",
-    navColor4: "hotpink",
+   
     logoHoverSize: "10px",
     logoHoverColor: "#eb4034",
     link1Text: "Home",
@@ -51,11 +49,11 @@ export default function Header() {
     cartIconUrl:'/Cart',
  
 
-  };
+  }
 
   return (
-    <BrowserRouter>
+    
       <ReactNavbar {...options} />
-    </BrowserRouter>
-  );
+    
+  )
 }

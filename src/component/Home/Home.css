@@ -1,0 +1,10 @@
+.banner{
+    background-image: linear-gradient(to right ,#636dc0,#3027ae);
+    height: 100vmin;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
