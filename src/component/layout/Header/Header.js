@@ -11,7 +11,7 @@ export default function Header() {
     burgerColorHover: "#eb4034",
     logo,
     logoWidth: "20vmax",
-    navColor1: "grey",
+    navColor1: "white",
    
     logoHoverSize: "10px",
     logoHoverColor: "#eb4034",
