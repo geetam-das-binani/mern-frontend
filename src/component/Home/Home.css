@@ -79,7 +79,7 @@
 .product_Card > div > span {
   margin: 0.4vmax 0 0 0.4vmax;
 
-  font: 300 0.7vmax "Roboto";
+  font: 300 .9vmax "Roboto";
   display: block;
 }
 .product_Card > p {
