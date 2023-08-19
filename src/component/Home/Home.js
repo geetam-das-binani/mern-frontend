@@ -4,29 +4,30 @@ import "./Home.css";
 import Product from "./Product";
 import Metadata from "../layout/Metadata";
 import { useDispatch, useSelector } from "react-redux";
-import { allProductsFail, allProductsSuccess } from "../../slice";
+// import { allProductsFail, allProductsSuccess } from "../../Slices/productsSlice";
 import { getAllProducts } from "../../actions/productActions";
+
+import Loader from "../layout/loader/Loader";
+import { useAlert } from "react-alert";
 export default function Home() {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, products, productsCount, error } = useSelector(
-    (state) => state.product
+    (state) => state.products
   );
-
+ 
   useEffect(() => {
-    const productsAll = async () => {
-      const response = await getAllProducts();
-      if (!response.success) {
-        dispatch(allProductsFail(response));
-      }
-      dispatch(allProductsSuccess(response));
-    };
+   if(error){
+    alert.error(error)
+   }
+    getAllProducts(dispatch)
 
-    productsAll();
-  }, [dispatch]);
+  }, [dispatch, error,alert]);
+ 
   return (
     <Fragment>
       {loading ? (
-        "loading"
+        <Loader />
       ) : (
         <Fragment>
           <Metadata title="ECOMMERCE" />
@@ -47,6 +48,7 @@ export default function Home() {
                 return <Product key={index} {...data} />;
               })}
           </div>
+          
         </Fragment>
       )}
     </Fragment>

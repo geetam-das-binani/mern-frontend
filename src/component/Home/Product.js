@@ -11,7 +11,7 @@ export default function Product({ name, images, _id, price ,ratings,numOfReviews
     size: window.innerWidth < 600 ? 20 : 25,
   };
   return (
-    <Link className="product_Card" to={_id}>
+    <Link className="product_Card" to={`/product/${_id}`}>
       <img src={images[0].url} alt={name} />
       <p>{name}</p>
       <div>
