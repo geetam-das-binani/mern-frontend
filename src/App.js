@@ -5,6 +5,7 @@ import Footer from "./component/layout/Footer/Footer";
 import webFont from "webfontloader";
 import { BrowserRouter ,Routes,Route} from "react-router-dom";
 import Home from './component/Home/Home'
+import ProductDetails from './component/Product/ProductDetails'
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={<Home/>}/>
+        <Route path="/product/:id" element={<ProductDetails/>}/>
         
       </Routes>
       <Footer />

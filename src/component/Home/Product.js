@@ -10,6 +10,7 @@ export default function Product({ name, images, _id, price ,ratings,numOfReviews
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
   };
+  console.log(images);
   return (
     <Link className="product_Card" to={`/product/${_id}`}>
       <img src={images[0].url} alt={name} />

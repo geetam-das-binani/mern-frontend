@@ -1,5 +1,6 @@
 import axios from "axios";
 import { allProductsFail, allProductsSuccess } from "../Slices/productsSlice";
+import { productFail, productSuccess } from "../Slices/productSlice";
 
 export const getAllProducts = async (dispatch) => {
   try {
@@ -15,11 +16,16 @@ export const getAllProducts = async (dispatch) => {
   }
 };
 
-export const getProductDetails = async (id) => {
+export const getProductDetails = async (dispatch, id) => {
   try {
     const { data } = await axios.get(`http://localhost:8000/product/${id}`);
+    dispatch(productSuccess(data.product));
     return data.product;
   } catch (error) {
-    console.log(error.message);
+    if (error.message === "Network Error") {
+      return dispatch(productFail(error.message));
+    }
+
+    dispatch(productFail(error.response.data.errorMessage));
   }
 };
