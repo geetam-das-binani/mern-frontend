@@ -4,26 +4,25 @@ import "./Home.css";
 import Product from "./Product";
 import Metadata from "../layout/Metadata";
 import { useDispatch, useSelector } from "react-redux";
-// import { allProductsFail, allProductsSuccess } from "../../Slices/productsSlice";
 import { getAllProducts } from "../../actions/productActions";
 
 import Loader from "../layout/loader/Loader";
-import { useAlert } from "react-alert";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
-  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, products, productsCount, error } = useSelector(
     (state) => state.products
   );
- 
-  useEffect(() => {
-   if(error){
-    alert.error(error)
-   }
-    getAllProducts(dispatch)
 
-  }, [dispatch, error,alert]);
- 
+  useEffect(() => {
+    if (error) {
+      toast.error(error, { theme: "dark" });
+    }
+    getAllProducts(dispatch);
+  }, [dispatch, error, alert]);
+
   return (
     <Fragment>
       {loading ? (
@@ -48,9 +47,9 @@ export default function Home() {
                 return <Product key={index} {...data} />;
               })}
           </div>
-          
         </Fragment>
       )}
+      <ToastContainer />
     </Fragment>
   );
 }
