@@ -66,7 +66,7 @@ export default function ProductDetails() {
             <button>Add to Cart</button>
           </div>
           <p>
-            Status
+            Status:
             <b className={product.stock < 1 ? "red_Color" : "green_Color"}>
               {product.stock < 1 ? "OutOfStock" : "InStock"}
             </b>
