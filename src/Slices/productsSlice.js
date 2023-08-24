@@ -5,6 +5,7 @@ const initialState = {
   loading: true,
   productsCount: 0,
   error: null,
+  resultsPerPage:''
 
 };
 
@@ -17,10 +18,13 @@ const productsReducer = createSlice({
       state.products = payload.products;
       state.loading = false;
       state.productsCount = payload.productCounts;
+      state.resultsPerPage=payload.resultsPerPage
+
     },
     allProductsFail: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
+
     },
     clearErrors: (state, action) => {
       state.error = null;

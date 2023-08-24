@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
   
   const dispatch = useDispatch();
-  const { loading, products, productsCount, error } = useSelector(
+  const { loading, products, error } = useSelector(
     (state) => state.products
   );
 
