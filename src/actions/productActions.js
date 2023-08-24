@@ -1,10 +1,15 @@
 import axios from "axios";
 import { allProductsFail, allProductsSuccess } from "../Slices/productsSlice";
-import { productFail, productSuccess } from "../Slices/productSlice";
+import {
+  
+  productFail,
+  productSuccess,
+} from "../Slices/productSlice";
 
-export const getAllProducts = async (dispatch) => {
+export const getAllProducts = async (dispatch,keyword='') => {
   try {
-    const { data } = await axios.get("http://localhost:8000/products");
+    let link=`http://localhost:8000/products?keyword=${keyword}`
+    const { data } = await axios.get(link);
     dispatch(allProductsSuccess(data));
     return data;
   } catch (error) {

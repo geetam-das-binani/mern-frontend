@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
-export default function Product({ name, images, _id, price ,ratings,numOfReviews}) {
+import './Home.css'
+export default function ProductCard({ name, images, _id, price ,ratings,numOfReviews}) {
   const options = {
     edit: false,
     color: "rgba(20,20,20,.1)",
@@ -12,7 +13,7 @@ export default function Product({ name, images, _id, price ,ratings,numOfReviews
   };
 
   return (
-    <Link className="product_Card" to={`/product/${_id}`}>
+    <Link className="product__card" to={`/product/${_id}`}>
       <img src={images[0].url} alt={name} />
       <p>{name}</p>
       <div>

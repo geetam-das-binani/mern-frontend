@@ -45,8 +45,8 @@ export default function Header() {
    profileIcon: true,
     searchIcon: true,
     cartIcon: true,
-    searchIconUrl:'/Search',
-    cartIconUrl:'/Cart',
+    searchIconUrl:'/search',
+    cartIconUrl:'/cart',
  
 
   }

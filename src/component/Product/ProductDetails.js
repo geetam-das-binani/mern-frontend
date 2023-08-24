@@ -7,6 +7,8 @@ import { getProductDetails } from "../../actions/productActions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactStars from "react-rating-stars-component";
+import ReviewCard from "./ReviewCard.js";
+import Loader from "../layout/loader/Loader";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -26,61 +28,80 @@ export default function ProductDetails() {
       toast.error(error, { theme: "dark" });
     }
     getProductDetails(dispatch, id);
-  }, [dispatch, error, alert, id]);
+  }, [dispatch, error, id]);
+  console.log(error);
   return (
     <Fragment>
-      <div className="product_Details">
-        <div> 
-          <Carousel>
-            {product.images &&
-              product.images.map((item, i) => {
-                return (
-                  <img
-                    key={item.url}
-                    src={item.url}
-                    alt={`${i}Slide`}
-                    className="carousel_Image"
-                  />
-                );
-              })}
-          </Carousel>
-        </div>
-        <div>
-          <div className="details_Block-1">
-            <h2>{product.name}</h2>
-            <p>Product # {product._id}</p>
-          </div>
-          <div className="details_Block-2">
-            <ReactStars {...options} />
-            <span>{product.numOfReviews}Reviews </span>
-          </div>
-          <div className="details_Block-3">
-            <h1>₹{product.price}</h1>
-         
-          <div className="details_Block-3-1">
-            <div className="details_Block-3-1-1">
-              <button>-</button>
-              <input type="number" value="1" />
-              <button>+</button>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <div className="product__details">
+            <div>
+              <Carousel>
+                {product.images &&
+                  product.images.map((item, i) => {
+                    return (
+                      <img
+                        key={item.url}
+                        src={item.url}
+                        alt={`${i}Slide`}
+                        className="carousel__image"
+                      />
+                    );
+                  })}
+              </Carousel>
             </div>
-            <button>Add to Cart</button>
-          </div>
-          <p>
-            Status:
-            <b className={product.stock < 1 ? "red_Color" : "green_Color"}>
-              {product.stock < 1 ? "OutOfStock" : "InStock"}
-            </b>
-          </p>
-          </div>
-          <div className="details_Block-4">
-            Description  : <p>{product.description}</p>
-          </div>
+            <div>
+              <div className="details__block__1">
+                <h2>{product.name}</h2>
+                <p>Product # {product._id}</p>
+              </div>
+              <div className="details__block__2">
+                <ReactStars {...options} />
+                <span>{product.numOfReviews}Reviews </span>
+              </div>
+              <div className="details__block__3">
+                <h1>₹{product.price}</h1>
 
-         <button className="submit_Button">
-          Submit Review
-         </button>
-        </div>
-      </div>
+                <div className="details__block__3__1">
+                  <div className="details__block__3__1__1">
+                    <button>-</button>
+                    <input type="number" value="1" />
+                    <button>+</button>
+                  </div>
+                  <button>Add to Cart</button>
+                </div>
+                <p>
+                  Status:
+                  <b
+                    className={product.stock < 1 ? "red_Color" : "green_Color"}
+                  >
+                    {product.stock < 1 ? "OutOfStock" : "InStock"}
+                  </b>
+                </p>
+              </div>
+              <div className="details__block__4">
+                Description : <p>{product.description}</p>
+              </div>
+
+              <button className="submit__button">Submit Review</button>
+            </div>
+          </div>
+          <h3 className="reviews__heading">REVIEWS</h3>
+
+          {product.reviews && product.reviews[0] ? (
+            <div className="reviews">
+              {product.reviews &&
+                product.reviews.map((review,index) => {
+                  return <ReviewCard key={index}{...review} />;
+                })}
+            </div>
+          ) : (
+            <p className="no__reviews">No reviews yet</p>
+          )}
+        </Fragment>
+      )}
       <ToastContainer />
     </Fragment>
   );

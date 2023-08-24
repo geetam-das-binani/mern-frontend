@@ -19,7 +19,7 @@ const productReducer = createSlice({
       state.error = payload;
     },
     clearProductError: (state, action) => {
-      state.productError = null;
+      state.error = null;
     },
   },
 });

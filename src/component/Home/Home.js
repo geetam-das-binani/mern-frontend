@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 import Metadata from "../layout/Metadata";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../actions/productActions";
@@ -11,6 +11,7 @@ import Loader from "../layout/loader/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
+  
   const dispatch = useDispatch();
   const { loading, products, productsCount, error } = useSelector(
     (state) => state.products
@@ -18,10 +19,10 @@ export default function Home() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error, { theme: "dark" });
+       toast.error(error, { theme: "dark" });
     }
     getAllProducts(dispatch);
-  }, [dispatch, error, alert]);
+  }, [dispatch, error]);
 
   return (
     <Fragment>
@@ -40,16 +41,17 @@ export default function Home() {
               </button>
             </a>
           </div>
-          <div className="home_heading">Featured Products</div>
+          <div className="home__heading">Featured Products</div>
           <div className="container" id="container">
             {products &&
               products.map((data, index) => {
-                return <Product key={index} {...data} />;
+                return <ProductCard key={index} {...data} />;
               })}
           </div>
         </Fragment>
       )}
       <ToastContainer />
+     
     </Fragment>
   );
 }
