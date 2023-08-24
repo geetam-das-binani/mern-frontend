@@ -19,7 +19,7 @@ export default function Products() {
     }
     getAllProducts(dispatch, keyword);
   }, [dispatch, error, keyword]);
-  console.log(products);
+
   return (
     <Fragment>
       {loading ? (
@@ -27,7 +27,11 @@ export default function Products() {
       ) : (
         <Fragment>
           <h2 className="products__heading">Products</h2>
-        
+        {
+          products.length ===0 ? 
+          <p className="no__products__found">No Products found</p>
+          :""
+        }
           <div className="products">
             {products &&
               products.map((product) => {

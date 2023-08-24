@@ -1,16 +1,24 @@
-.products__heading{
-    margin: 2vmax auto ;
-    width:15vw ;
-    border-bottom: 1px solid rgba(0, 0, 0, .171);
-    text-align: center;
-    padding: 2vmax;
-    color: rgba(0, 0, 0, .678);
-    font: 500 1.5vmax 'Roboto';
-    text-align: center;
+.products__heading {
+  margin: 2vmax auto;
+  width: 15vw;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+  text-align: center;
+  padding: 2vmax;
+  color: rgba(0, 0, 0, 0.678);
+  font: 500 1.5vmax "Roboto";
+  text-align: center;
 }
-.products{
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 5vmax;
-    justify-content: center;
+.no__products__found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: tomato;
+  font: 500 4vmax cursive;
+  height: 45vw;
+}
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 5vmax;
+  justify-content: center;
 }
