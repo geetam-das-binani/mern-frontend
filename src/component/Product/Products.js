@@ -10,11 +10,24 @@ import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
+const categories = [
+  "Laptop",
+  "Footwear",
+  "Shirts",
+  "T-shirts",
+  "Attire",
+  "camera",
+  "Tops",
+  "SmartPhones",
+];
 export default function Products() {
   const { keyword } = useParams();
+
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
+  const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState(0);
   const {
     loading,
     products,
@@ -33,11 +46,11 @@ export default function Products() {
     if (error) {
       toast.error(error, { theme: "dark" });
     }
-    getAllProducts(dispatch, keyword, currentPage, price);
-  }, [dispatch, error, keyword, currentPage, price]);
+    getAllProducts(dispatch, keyword, currentPage, price, category, ratings);
+  }, [dispatch, error, keyword, currentPage, price, category, ratings]);
   let count = filteredProductsCount;
   return (
-    <Fragment> 
+    <Fragment>
       {loading ? (
         <Loader />
       ) : (
@@ -62,6 +75,32 @@ export default function Products() {
               min={0}
               max={25000}
             />
+            <Typography>Categories</Typography>
+            <ul className="category__box">
+              {categories.map((category) => {
+                return (
+                  <li
+                    className="category__link"
+                    key={category}
+                    onClick={() => setCategory(category)}
+                  >
+                    {category}
+                  </li>
+                );
+              })}
+            </ul>
+            <fieldset>
+              <Typography>Ratings Above</Typography>
+              <Slider
+                value={ratings}
+                onChange={(e, newRating) => setRatings(newRating)}
+                aria-labelledby="continuous-slider"
+                min={0}
+                max={5}
+                size="small"
+                valueLabelDisplay="auto"
+              />
+            </fieldset>
           </div>
           {resultsPerPage < count && (
             <div className="pagination__box">

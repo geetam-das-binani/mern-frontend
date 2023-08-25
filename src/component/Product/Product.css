@@ -25,6 +25,7 @@
 .pagination__box {
   display: flex;
   justify-content: center;
+  margin-top: 1vmax;
 }
 .pagination {
   display: flex;
@@ -64,10 +65,45 @@
 .page__link__active {
   color: white;
 }
-.filter__box{
+.filter__box {
   width: 10vmax;
   position: absolute;
-  top:10vmax ;
+  top: 10vmax;
   left: 2vmax;
+}
+.category__box {
+  padding: 0%;
+  list-style: none;
+  color: rgba(0, 0, 0, 0.61);
+  font: 400 0.8vmax "Roboto";
+  margin: 0.4vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.category__link:hover {
+  color: tomato;
+}
+.filter__box > fieldset {
+  border: 1px solid rgba(0, 0, 0, 0.129);
+  padding: 0%;
+  margin: 0%;
+}
+.filter__box > fieldset > p {
+  font: 500 1.3vmax "Roboto";
+  text-align: center;
+}
+@media screen and (max-width: 600px) {
+  .filter__box {
+    position: static;
+    width: 20vmax;
+    margin: auto;
 
+
+  }
+  .page__link {
+    font: 300 1.7vmax "Roboto";
+  }
+  .category__link{
+    font: 400 1.8vmax 'Roboto';
+  }
 }
