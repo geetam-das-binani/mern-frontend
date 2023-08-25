@@ -19,6 +19,7 @@ const productsReducer = createSlice({
       state.loading = false;
       state.productsCount = payload.productCounts;
       state.resultsPerPage=payload.resultsPerPage
+      state.filteredProductsCount=payload.filteredProductsCount
 
     },
     allProductsFail: (state, { payload }) => {

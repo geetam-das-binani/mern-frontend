@@ -64,3 +64,10 @@
 .page__link__active {
   color: white;
 }
+.filter__box{
+  width: 10vmax;
+  position: absolute;
+  top:10vmax ;
+  left: 2vmax;
+
+}
