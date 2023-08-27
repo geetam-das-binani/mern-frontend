@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard.js";
 import Loader from "../layout/loader/Loader";
-
+import Metadata from "../layout/Metadata";
 export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ export default function ProductDetails() {
         <Loader />
       ) : (
         <Fragment>
+          <Metadata title={`${product.name}...ECOMMERCE`} />
           <div className="product__details">
             <div>
               <Carousel>
@@ -93,8 +94,8 @@ export default function ProductDetails() {
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
-                product.reviews.map((review,index) => {
-                  return <ReviewCard key={index}{...review} />;
+                product.reviews.map((review, index) => {
+                  return <ReviewCard key={index} {...review} />;
                 })}
             </div>
           ) : (

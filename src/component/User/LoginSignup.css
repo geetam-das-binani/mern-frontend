@@ -1,0 +1,43 @@
+.login__signUp__container {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background: rgb(211, 211, 211);
+}
+.login__signUp__box {
+  background: white;
+  width: 25vw;
+  height: 70vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.login__signUp__toggle {
+  display: flex;
+  height: 3vmax;
+}
+.login__signUp__toggle > p {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  cursor: pointer;
+  transition: all .5s;
+  font: 300 1vmax 'Roboto';
+  color: rgba(0, 0, 0, .678);
+
+}
+.login__signUp__toggle >P:hover{
+    color: tomato;
+}
+.login__signUp__box >div >button{
+    height: 3px;
+    width: 50%;
+    background: tomato;
+    transition: all .5s;
+    border: none;
+}

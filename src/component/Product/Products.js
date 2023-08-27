@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
+import Metadata from "../layout/Metadata";
+
 const categories = [
   "Laptop",
   "Footwear",
@@ -44,7 +46,8 @@ export default function Products() {
   };
   useEffect(() => {
     if (error) {
-      toast.error(error, { theme: "dark" });
+      toast.error(error, { theme: "dark"});
+     
     }
     getAllProducts(dispatch, keyword, currentPage, price, category, ratings);
   }, [dispatch, error, keyword, currentPage, price, category, ratings]);
@@ -55,6 +58,7 @@ export default function Products() {
         <Loader />
       ) : (
         <Fragment>
+          <Metadata title='PRODUCTS ...ECOMMERCE'/>
           <h2 className="products__heading">Products</h2>
 
           <div className="products">
@@ -120,9 +124,11 @@ export default function Products() {
               />
             </div>
           )}
+     
+
         </Fragment>
       )}
-      <ToastContainer />
+     <ToastContainer  />
     </Fragment>
   );
 }
