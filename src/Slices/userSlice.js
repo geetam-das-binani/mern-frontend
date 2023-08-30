@@ -1,9 +1,7 @@
-import { fabClasses } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {},
-  loading: true,
-  error: null,
+   error: null,
   isAuthenticatedUser: false,
 };
 
@@ -14,16 +12,28 @@ const userReducer = createSlice({
   reducers: {
     loginSuccess: (state, { payload }) => {
       state.user = payload;
-      state.loading = false;
-      state.isAuthenticatedUser=true
+
+      state.isAuthenticatedUser = true;
     },
     loginFail: (state, { payload }) => {
-      state.loading = false;
       state.error = payload;
-      state.isAuthenticatedUser=false
-      state.user=null
+      state.isAuthenticatedUser = false;
+      state.user = null;
     },
-    clearLoginError: (state, action) => {
+    clearError: (state, action) => {
+      state.error = null;
+    },
+    registerSuccess: (state, { payload }) => {
+      state.user = payload;
+
+      state.isAuthenticatedUser = true;
+    },
+    registerFail: (state, { payload }) => {
+      state.error = payload;
+      state.isAuthenticatedUser = false;
+      state.user = null;
+    },
+    clearError: (state, action) => {
       state.error = null;
     },
   },
@@ -31,4 +41,4 @@ const userReducer = createSlice({
 
 export default userReducer.reducer;
 
-export const { loginSuccess, loginFail, clearLoginError } = userReducer.actions;
+export const { loginSuccess, loginFail, clearError,registerFail,registerSuccess } = userReducer.actions;

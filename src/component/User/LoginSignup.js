@@ -1,13 +1,21 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState, useRef, useEffect } from "react";
 import "./LoginSignup.css";
-// import Loader from "../layout/loader/Loader";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
 import FaceIcon from "@mui/icons-material/Face";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { login,register } from "../../actions/userActions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { clearError } from "../../Slices/userSlice";
 export default function LoginSignup() {
+ const { error, isAuthenticatedUser } = useSelector((state) => state.user);
+ 
+ const navigate=useNavigate()
+  const dispatch = useDispatch();
   const [loginPassword, setLoginPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const loginTab = useRef(null);
@@ -23,7 +31,8 @@ export default function LoginSignup() {
 
   const loginSubmit = (e) => {
     e.preventDefault();
-    console.log("login form submitted");
+
+    login(dispatch, loginEmail, loginPassword);
   };
 
   const registerSubmit = (e) => {
@@ -33,8 +42,7 @@ export default function LoginSignup() {
     myform.set("email", user.email);
     myform.set("password", user.password);
     myform.set("avatar", avatar);
-   
-   
+    register(dispatch,myform)
   };
 
   const registerDateChange = (e) => {
@@ -53,7 +61,16 @@ export default function LoginSignup() {
       });
     }
   };
-
+  useEffect(() => {
+    if (error) {
+      toast.error(error, { theme: "dark" });
+      dispatch(clearError());
+    }
+    if (isAuthenticatedUser) {
+      navigate("/account");
+    }
+  }, [dispatch, error, isAuthenticatedUser]);
+ 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
       switcherTab.current.classList.add("shift__to__neutral");
@@ -162,6 +179,7 @@ export default function LoginSignup() {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </Fragment>
   );
 }
