@@ -1,5 +1,5 @@
 import axios from "axios";
-import { allProductsFail, allProductsSuccess } from "../Slices/productsSlice";
+import { allProductsFail, allProductsSuccess, clearErrors } from "../Slices/productsSlice";
 import { productFail, productSuccess } from "../Slices/productSlice";
 
 export const getAllProducts = async (
@@ -13,7 +13,7 @@ export const getAllProducts = async (
   try {
     let link = `http://localhost:8000/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
     if (category) {
-      console.log(category);
+      
       link = `http://localhost:8000/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
     }
 
@@ -42,3 +42,7 @@ export const getProductDetails = async (dispatch, id) => {
     dispatch(productFail(error.response.data.errorMessage));
   }
 };
+
+// export const removeError=(dispatch)=>{
+//          dispatch(clearErrors())
+// }
