@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useRef } from "react";
 import "./LoginSignup.css";
-import Loader from "../layout/loader/Loader";
-import { useNavigate } from "react-router-dom";
-import LockIcon from '@mui/icons-material/Lock';
-
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-
+// import Loader from "../layout/loader/Loader";
+// import { useNavigate } from "react-router-dom";
+import LockIcon from "@mui/icons-material/Lock";
+import FaceIcon from "@mui/icons-material/Face";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Link } from "react-router-dom";
 export default function LoginSignup() {
   const [loginPassword, setLoginPassword] = useState("");
@@ -13,23 +13,59 @@ export default function LoginSignup() {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-  const loginSubmit=(e)=>{
-    e.preventDefault()
-    console.log('form submitted');
-  }
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
+
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    console.log("login form submitted");
+  };
+
+  const registerSubmit = (e) => {
+    e.preventDefault();
+    const myform = new FormData();
+    myform.set("name", user.name);
+    myform.set("email", user.email);
+    myform.set("password", user.password);
+    myform.set("avatar", avatar);
+   
+   
+  };
+
+  const registerDateChange = (e) => {
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setUser((prev) => {
+        return { ...prev, [e.target.name]: e.target.value };
+      });
+    }
+  };
+
   const switchTabs = (e, tab) => {
     if (tab === "login") {
-           switcherTab.current.classList.add('shift__to__neutral')
-           switcherTab.current.classList.remove('shift__to__right')
-           registerTab.current.classList.remove('shift__to__neutral__form')
-           registerTab.current.classList.remove('shift__to__left')
-        
+      switcherTab.current.classList.add("shift__to__neutral");
+      switcherTab.current.classList.remove("shift__to__right");
+      registerTab.current.classList.remove("shift__to__neutral__form");
+      loginTab.current.classList.remove("shift__to__left");
     }
     if (tab === "register") {
-        switcherTab.current.classList.add('shift__to__right')
-        switcherTab.current.classList.remove('shift__to__neutral')
-        registerTab.current.classList.add('shift__to__neutral__form')
-        registerTab.current.classList.add('shift__to__left')
+      switcherTab.current.classList.add("shift__to__right");
+      switcherTab.current.classList.remove("shift__to__neutral");
+      registerTab.current.classList.add("shift__to__neutral__form");
+      loginTab.current.classList.add("shift__to__left");
     }
   };
   return (
@@ -45,7 +81,7 @@ export default function LoginSignup() {
           </div>
           <form ref={loginTab} className="login__form" onSubmit={loginSubmit}>
             <div className="login__email">
-                <MailOutlineIcon/>
+              <MailOutlineIcon />
               <input
                 type="email"
                 placeholder="email"
@@ -56,7 +92,7 @@ export default function LoginSignup() {
             </div>
 
             <div className="login__password">
-                <LockIcon />
+              <LockIcon />
               <input
                 type="password"
                 placeholder="password"
@@ -67,6 +103,62 @@ export default function LoginSignup() {
             </div>
             <Link to="/password/forget">Forgot Password ?</Link>
             <input type="submit" value="login" className="login__btn" />
+          </form>
+          <form
+            className="signUp__form"
+            ref={registerTab}
+            encType="multipart/form-data"
+            onSubmit={registerSubmit}
+          >
+            <div className="signUp__name">
+              <FaceIcon />
+              <input
+                type="text"
+                placeholder="Name"
+                required
+                name="name"
+                value={user.name}
+                onChange={registerDateChange}
+              />
+            </div>
+            <div className="signUp__Email">
+              <MailOutlineIcon />
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                name="email"
+                value={user.email}
+                onChange={registerDateChange}
+              />
+            </div>
+            <div className="login__password">
+              <LockOpenIcon />
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                name="password"
+                value={user.password}
+                onChange={registerDateChange}
+              />
+            </div>
+            <div id="register__image">
+              <img src={avatarPreview} alt="Avatar Preview" />
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                onChange={registerDateChange}
+              />
+            </div>
+            <input
+              type="submit"
+              value="Register"
+              className="signUp__btn"
+              onChange={registerDateChange}
+              // disabled={loading ? true :false}
+            />
           </form>
         </div>
       </div>
