@@ -18,14 +18,14 @@ export const login = async (dispatch, email, password) => {
   }
 };
 export const register = async (dispatch, userData) => {
-  console.log(userData);
+  
   try {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
     const { data } = await axios.post(
       `http://localhost:8000/register`,
-      {
+      
         userData,
-      },
+      
       config
     );
     dispatch(registerSuccess(data.user));

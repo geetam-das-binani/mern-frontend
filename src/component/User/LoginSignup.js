@@ -7,14 +7,14 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { login,register } from "../../actions/userActions";
+import { login, register } from "../../actions/userActions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { clearError } from "../../Slices/userSlice";
 export default function LoginSignup() {
- const { error, isAuthenticatedUser } = useSelector((state) => state.user);
- 
- const navigate=useNavigate()
+  const { error, isAuthenticatedUser } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginPassword, setLoginPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -28,7 +28,7 @@ export default function LoginSignup() {
   });
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
-
+  console.log(avatar);
   const loginSubmit = (e) => {
     e.preventDefault();
 
@@ -42,7 +42,8 @@ export default function LoginSignup() {
     myform.set("email", user.email);
     myform.set("password", user.password);
     myform.set("avatar", avatar);
-    register(dispatch,myform)
+    
+    register(dispatch, myform);
   };
 
   const registerDateChange = (e) => {
@@ -70,7 +71,7 @@ export default function LoginSignup() {
       navigate("/account");
     }
   }, [dispatch, error, isAuthenticatedUser]);
- 
+
   const switchTabs = (e, tab) => {
     if (tab === "login") {
       switcherTab.current.classList.add("shift__to__neutral");
