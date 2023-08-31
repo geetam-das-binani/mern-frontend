@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import "./LoginSignup.css";
 import { useNavigate } from "react-router-dom";
+import Loader from "../layout/loader/Loader";
 import LockIcon from "@mui/icons-material/Lock";
 import FaceIcon from "@mui/icons-material/Face";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -18,6 +19,7 @@ export default function LoginSignup() {
   const dispatch = useDispatch();
   const [loginPassword, setLoginPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
+  const [loading, setLoading] = useState(true);
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
@@ -42,7 +44,7 @@ export default function LoginSignup() {
     myform.set("email", user.email);
     myform.set("password", user.password);
     myform.set("avatar", avatar);
-    
+    setLoading(true);
     register(dispatch, myform);
   };
 
@@ -70,6 +72,11 @@ export default function LoginSignup() {
     if (isAuthenticatedUser) {
       navigate("/account");
     }
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
+    }
   }, [dispatch, error, isAuthenticatedUser]);
 
   const switchTabs = (e, tab) => {
@@ -88,99 +95,109 @@ export default function LoginSignup() {
   };
   return (
     <Fragment>
-      <div className="login__signUp__container">
-        <div className="login__signUp__box">
-          <div>
-            <div className="login__signUp__toggle">
-              <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
-              <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
-            </div>
-            <button ref={switcherTab}></button>
-          </div>
-          <form ref={loginTab} className="login__form" onSubmit={loginSubmit}>
-            <div className="login__email">
-              <MailOutlineIcon />
-              <input
-                type="email"
-                placeholder="email"
-                required
-                value={loginEmail}
-                onChange={({ target }) => setLoginEmail(target.value)}
-              />
-            </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <div className="login__signUp__container">
+            <div className="login__signUp__box">
+              <div>
+                <div className="login__signUp__toggle">
+                  <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
+                  <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
+                </div>
+                <button ref={switcherTab}></button>
+              </div>
+              <form
+                ref={loginTab}
+                className="login__form"
+                onSubmit={loginSubmit}
+              >
+                <div className="login__email">
+                  <MailOutlineIcon />
+                  <input
+                    type="email"
+                    placeholder="email"
+                    required
+                    value={loginEmail}
+                    onChange={({ target }) => setLoginEmail(target.value)}
+                  />
+                </div>
 
-            <div className="login__password">
-              <LockIcon />
-              <input
-                type="password"
-                placeholder="password"
-                required
-                value={loginPassword}
-                onChange={({ target }) => setLoginPassword(target.value)}
-              />
+                <div className="login__password">
+                  <LockIcon />
+                  <input
+                    type="password"
+                    placeholder="password"
+                    required
+                    value={loginPassword}
+                    onChange={({ target }) => setLoginPassword(target.value)}
+                  />
+                </div>
+                <Link to="/password/forget">Forgot Password ?</Link>
+                <input type="submit" value="login" className="login__btn" />
+              </form>
+              <form
+                className="signUp__form"
+                ref={registerTab}
+                encType="multipart/form-data"
+                onSubmit={registerSubmit}
+              >
+                <div className="signUp__name">
+                  <FaceIcon />
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    required
+                    name="name"
+                    value={user.name}
+                    onChange={registerDateChange}
+                  />
+                </div>
+                <div className="signUp__Email">
+                  <MailOutlineIcon />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="email"
+                    value={user.email}
+                    onChange={registerDateChange}
+                  />
+                </div>
+                <div className="login__password">
+                  <LockOpenIcon />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    name="password"
+                    value={user.password}
+                    onChange={registerDateChange}
+                  />
+                </div>
+                <div id="register__image">
+                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept="image/*"
+                    onChange={registerDateChange}
+                  />
+                </div>
+                <input
+                  type="submit"
+                  value="Register"
+                  className="signUp__btn"
+                  onChange={registerDateChange}
+                  // disabled={loading ? true :false}
+                />
+              </form>
             </div>
-            <Link to="/password/forget">Forgot Password ?</Link>
-            <input type="submit" value="login" className="login__btn" />
-          </form>
-          <form
-            className="signUp__form"
-            ref={registerTab}
-            encType="multipart/form-data"
-            onSubmit={registerSubmit}
-          >
-            <div className="signUp__name">
-              <FaceIcon />
-              <input
-                type="text"
-                placeholder="Name"
-                required
-                name="name"
-                value={user.name}
-                onChange={registerDateChange}
-              />
-            </div>
-            <div className="signUp__Email">
-              <MailOutlineIcon />
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                name="email"
-                value={user.email}
-                onChange={registerDateChange}
-              />
-            </div>
-            <div className="login__password">
-              <LockOpenIcon />
-              <input
-                type="password"
-                placeholder="Password"
-                required
-                name="password"
-                value={user.password}
-                onChange={registerDateChange}
-              />
-            </div>
-            <div id="register__image">
-              <img src={avatarPreview} alt="Avatar Preview" />
-              <input
-                type="file"
-                name="avatar"
-                accept="image/*"
-                onChange={registerDateChange}
-              />
-            </div>
-            <input
-              type="submit"
-              value="Register"
-              className="signUp__btn"
-              onChange={registerDateChange}
-              // disabled={loading ? true :false}
-            />
-          </form>
-        </div>
-      </div>
-      <ToastContainer />
+          </div>
+          <ToastContainer />
+        </Fragment>
+      )}
     </Fragment>
   );
 }

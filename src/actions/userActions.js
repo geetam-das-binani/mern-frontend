@@ -1,6 +1,10 @@
 import axios from "axios";
-import { loginFail, loginSuccess ,registerSuccess,registerFail} from "../Slices/userSlice";
-
+import {
+  loginFail,
+  loginSuccess,
+  registerSuccess,
+  registerFail,
+} from "../Slices/userSlice";
 
 export const login = async (dispatch, email, password) => {
   try {
@@ -18,14 +22,13 @@ export const login = async (dispatch, email, password) => {
   }
 };
 export const register = async (dispatch, userData) => {
-  
   try {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
     const { data } = await axios.post(
       `http://localhost:8000/register`,
-      
-        userData,
-      
+
+      userData,
+
       config
     );
     dispatch(registerSuccess(data.user));
